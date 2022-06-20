@@ -1,4 +1,4 @@
-module github.com/jomei/notionapi
+module github.com/yoyomolinas/notionapi
 
 go 1.14
 
