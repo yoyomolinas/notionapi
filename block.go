@@ -347,11 +347,7 @@ type ToDo struct {
 
 type ToggleBlock struct {
 	BasicBlock
-	// DEPRECATED use RichText instead
-	Text     []RichText `json:"text,omitempty"`
-	RichText []RichText `json:"rich_text"`
-	Children Blocks     `json:"children,omitempty"`
-	Toggle   Toggle     `json:"toggle"`
+	Toggle Toggle `json:"toggle"`
 }
 
 type Toggle struct {

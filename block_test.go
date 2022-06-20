@@ -503,3 +503,44 @@ func TestBlockUpdateRequest_MarshallJSON(t *testing.T) {
 		})
 	}
 }
+
+func TestBlocks_MarshalJSON(t *testing.T) {
+	tests := []struct {
+		name string
+		got  notionapi.Block
+		want []byte
+	}{
+		{
+			name: "marshal ToggleBlock",
+			got: notionapi.ToggleBlock{
+				BasicBlock: notionapi.BasicBlock{
+					Object: notionapi.ObjectTypeBlock,
+					Type:   notionapi.BlockTypeToggle,
+				},
+				Toggle: notionapi.Toggle{
+					RichText: []notionapi.RichText{
+						{
+							PlainText: "hello world!",
+						},
+					},
+				},
+			},
+			want: []byte(`{"object":"block","type":"toggle","toggle":{"rich_text":[{"text":{"content":""},"plain_text":"hello world!"}]}}`),
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := json.Marshal(tt.got)
+			if err != nil {
+				t.Errorf("MarshalJSON error: %v", err)
+				return
+			}
+
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("MarshalJOSN got = %s, want = %s", got, tt.want)
+				return
+			}
+		})
+	}
+}
